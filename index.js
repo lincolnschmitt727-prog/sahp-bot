@@ -26,7 +26,8 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,
-    GatewayIntentBits.GuildMessages
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent
   ]
 });
 
@@ -42,17 +43,27 @@ client.once("ready", () => {
 });
 
 // ============================
-// BASIC /say COMMAND EXAMPLE
+// COMMAND HANDLER
 // ============================
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  // commands...
+  if (interaction.commandName === "say") {
+    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
+      return interaction.reply({ content: "❌ No permission.", ephemeral: true });
+    }
+
+    const msg = interaction.options.getString("message");
+
+    await interaction.reply({ content: "✅ Sent.", ephemeral: true });
+    await interaction.channel.send(msg);
+  }
 });
 
-client.once("ready", () => {
-  console.log(`Logged in as ${client.user.tag}`);
-});
+// ============================
+// LOGIN
+// ============================
+console.log("About to login...");
 
 client.login(TOKEN)
   .then(() => console.log("LOGIN ATTEMPT SUCCESSFUL"))
