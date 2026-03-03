@@ -58,10 +58,12 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.channel.send(message);
   }
 });
-
-// ============================
-// LOGIN
-// ============================
-client.login(TOKEN).catch(err => {
-  console.error("LOGIN FAILED:", err);
+client.login(TOKEN)
+  .then(() => {
+    console.log("LOGIN ATTEMPT SUCCESSFUL");
+  })
+  .catch((err) => {
+    console.error("LOGIN FAILED:", err);
+  });
 });
+
