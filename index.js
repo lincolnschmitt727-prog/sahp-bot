@@ -8,6 +8,17 @@ const {
   ButtonStyle
 } = require("discord.js");
 
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("SAHP Bot is running.");
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Web server running.");
+});
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
