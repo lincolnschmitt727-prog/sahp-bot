@@ -257,5 +257,6 @@ client.on("interactionCreate", async (interaction) => {
   }
 
 });
-
+console.log("Token loaded:", TOKEN ? "YES" : "NO");
 client.login(TOKEN);
+
