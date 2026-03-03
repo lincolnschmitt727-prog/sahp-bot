@@ -60,11 +60,21 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-// ============================
-// LOGIN
-// ============================
 console.log("About to login...");
 
+const loginTimeout = setTimeout(() => {
+  console.error("LOGIN TIMEOUT: Discord never responded. This is almost always an invalid token (or rarely a blocked connection).");
+  process.exit(1);
+}, 15000);
+
 client.login(TOKEN)
-  .then(() => console.log("LOGIN ATTEMPT SUCCESSFUL"))
-  .catch((err) => console.error("LOGIN FAILED:", err));
+  .then(() => {
+    clearTimeout(loginTimeout);
+    console.log("LOGIN ATTEMPT SUCCESSFUL");
+  })
+  .catch((err) => {
+    clearTimeout(loginTimeout);
+    console.error("LOGIN FAILED:", err);
+    process.exit(1);
+  });
+
