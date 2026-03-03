@@ -65,5 +65,3 @@ client.login(TOKEN)
   .catch((err) => {
     console.error("LOGIN FAILED:", err);
   });
-});
-
