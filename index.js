@@ -47,21 +47,13 @@ client.once("ready", () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  if (interaction.commandName === "say") {
-    if (!interaction.member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
-      return interaction.reply({ content: "❌ No permission.", ephemeral: true });
-    }
-
-    const message = interaction.options.getString("message");
-
-    await interaction.reply({ content: "✅ Sent.", ephemeral: true });
-    await interaction.channel.send(message);
-  }
+  // commands...
 });
+
+client.once("ready", () => {
+  console.log(`Logged in as ${client.user.tag}`);
+});
+
 client.login(TOKEN)
-  .then(() => {
-    console.log("LOGIN ATTEMPT SUCCESSFUL");
-  })
-  .catch((err) => {
-    console.error("LOGIN FAILED:", err);
-  });
+  .then(() => console.log("LOGIN ATTEMPT SUCCESSFUL"))
+  .catch((err) => console.error("LOGIN FAILED:", err));
