@@ -10,9 +10,10 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "dependencies": {
+  "dependencies":{
     "@discordjs/rest": "^2.6.0",
     "discord-api-types": "^0.38.40",
     "discord.js": "^14.25.1"
+    "express": "^4.19.2"
   }
 }
